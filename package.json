@@ -7,5 +7,8 @@
     "test": "test"
   },
   "author": "caspa2289",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.18.2"
+  }
 }
