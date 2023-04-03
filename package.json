@@ -1,0 +1,11 @@
+{
+  "name": "rocket-thing-backend",
+  "version": "0.0.1",
+  "description": "backend for rocket-thing",
+  "main": "main.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "caspa2289",
+  "license": "MIT"
+}
