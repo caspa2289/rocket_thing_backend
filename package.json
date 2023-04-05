@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node .dist/main.js",
     "build": "esbuild main.ts --platform=node --bundle --minify --outfile=.dist/main.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q main.ts\""
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q main.ts\"",
+    "prepare": "husky install"
   },
   "author": "caspa2289",
   "license": "MIT",
@@ -16,11 +17,21 @@
   "devDependencies": {
     "@types/express": "4.17.17",
     "@types/node": "18.15.11",
+    "@typescript-eslint/eslint-plugin": "5.57.1",
+    "@typescript-eslint/parser": "5.57.1",
     "concurrently": "8.0.1",
     "dotenv": "16.0.3",
     "esbuild": "0.17.15",
+    "eslint": "8.37.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
     "nodemon": "2.0.22",
+    "prettier": "2.8.7",
     "ts-node": "10.9.1",
     "typescript": "5.0.3"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --cache --fix",
+    "*.{ts, js}": "prettier --write"
   }
 }
