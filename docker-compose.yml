@@ -17,7 +17,8 @@ services:
         environment:
           - SERVER_PORT=${SERVER_PORT}
         depends_on:
-          - postgres
+          postgres:
+            condition: service_healthy
         networks:
           - main
     postgres:
@@ -35,6 +36,11 @@ services:
           - postgresdata:/var/lib/postgresql/data
         networks:
           - main
+        healthcheck:
+          test: ["CMD-SHELL", "pg_isready -U admin -d postgres"]
+          interval: 5s
+          retries: 10
+          timeout: 5s
     pgadmin:
         image: dpage/pgadmin4:4.18
         env_file:
@@ -49,7 +55,8 @@ services:
         volumes:
           - pgadmin:/var/lib/pgadmin
         depends_on:
-          - postgres
+          postgres:
+            condition: service_healthy
         networks:
           - main
 
