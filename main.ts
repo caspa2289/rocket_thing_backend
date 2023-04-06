@@ -1,14 +1,36 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import { createClientAndConnect } from './src/database/specs'
 
 dotenv.config()
-const app = express()
-const port = process.env.DEV_PORT ?? 6969
 
-app.get('/', (_, res) => {
-    res.send('Hello World!')
-})
+async function startServer() {
+    const app = express()
+    const clientPort = Number(process.env.CLIENT_PORT) || 3000
+    const serverPort = Number(process.env.SERVER_PORT) || 6969
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+    const corsOptions = {
+        credentials: true,
+        origin: [
+            `http://127.0.0.1:${clientPort}`,
+            `http://localhost:${clientPort}`,
+        ],
+    }
+
+    app.use(cors(corsOptions))
+    app.use(bodyParser.json())
+
+    createClientAndConnect()
+
+    app.get('/', (_, res) => {
+        res.send('Hello World!')
+    })
+
+    app.listen(serverPort, () => {
+        console.log(`Example app listening on port ${serverPort}`)
+    })
+}
+
+startServer()
