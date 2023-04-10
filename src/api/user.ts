@@ -3,11 +3,11 @@ import { USER_PATH } from '../utils/constants'
 import User from '../database/tables/User'
 import { generateResponse } from '../utils/helpers'
 
-const healthCheckHandler = async (_: Request, res: Response) => {
+const handleHealthCheck = async (_: Request, res: Response) => {
     res.send('User api is healthy')
 }
 
-const signUpHandler = async (req: Request, res: Response) => {
+const handleSignUp = async (req: Request, res: Response) => {
     const { password, login, name } = req.body
 
     try {
@@ -36,5 +36,5 @@ const signUpHandler = async (req: Request, res: Response) => {
 }
 
 export const userApi = Router()
-    .get(`${USER_PATH}/health`, healthCheckHandler)
-    .post(`${USER_PATH}/signup`, signUpHandler)
+    .get(`${USER_PATH}/health`, handleHealthCheck)
+    .post(`${USER_PATH}/signup`, handleSignUp)
