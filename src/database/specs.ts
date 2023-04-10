@@ -1,41 +1,31 @@
-const {
-    POSTGRES_USER,
-    POSTGRES_PASSWORD,
-    POSTGRES_DB,
-    POSTGRES_PORT,
-    POSTGRES_HOST,
-} = process.env
-
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
 
-const testConnection = async (sequelize: Sequelize) => {
-    try {
-        await sequelize.authenticate()
-        console.log('Connection has been established successfully.')
-    } catch (error) {
-        console.error('Unable to connect to the database:', error)
-    }
-}
+import User from './tables/User'
 
 export const createClientAndConnect = (): Sequelize | null => {
     try {
         const sequelizeOptions: SequelizeOptions = {
-            username: POSTGRES_USER,
-            host: POSTGRES_HOST,
-            database: POSTGRES_DB,
-            password: POSTGRES_PASSWORD,
-            port: Number(POSTGRES_PORT),
+            username: process.env.POSTGRES_USER,
+            host: process.env.POSTGRES_HOST,
+            database: process.env.POSTGRES_DB,
+            password: process.env.POSTGRES_PASSWORD,
+            port: Number(process.env.POSTGRES_PORT),
             dialect: 'postgres',
+            models: [User],
         }
 
-        const sequelize = new Sequelize(sequelizeOptions)
-
-        testConnection(sequelize)
-
-        return sequelize
+        return new Sequelize(sequelizeOptions)
     } catch (e) {
         console.error(e)
     }
 
     return null
+}
+
+export const synchronizeDB = (sequelize: Sequelize | null) => {
+    if (!sequelize) throw new Error('Sequelize instance not found')
+
+    sequelize.sync().then((res) => {
+        console.log('Connected to the database with options:', res.options)
+    })
 }

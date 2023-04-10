@@ -2,7 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import { createClientAndConnect } from './src/database/specs'
+import { createClientAndConnect, synchronizeDB } from './src/database/specs'
 
 dotenv.config()
 
@@ -22,7 +22,9 @@ async function startServer() {
     app.use(cors(corsOptions))
     app.use(bodyParser.json())
 
-    createClientAndConnect()
+    const sequelize = createClientAndConnect()
+
+    synchronizeDB(sequelize)
 
     app.get('/', (_, res) => {
         res.send('Hello World!')
