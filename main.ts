@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import { createClientAndConnect, synchronizeDB } from './src/database/specs'
+import { BASE_PATH } from './src/utils/constants'
+import { userApi } from './src/api/user'
 
 dotenv.config()
 
@@ -21,17 +23,18 @@ async function startServer() {
 
     app.use(cors(corsOptions))
     app.use(bodyParser.json())
+    app.use(`${BASE_PATH}/`, userApi)
 
     const sequelize = createClientAndConnect()
 
     synchronizeDB(sequelize)
 
     app.get('/', (_, res) => {
-        res.send('Hello World!')
+        res.send('It`s alive!')
     })
 
     app.listen(serverPort, () => {
-        console.log(`Example app listening on port ${serverPort}`)
+        console.log(`App is listening on port ${serverPort}`)
     })
 }
 
