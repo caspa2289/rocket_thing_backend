@@ -25,7 +25,7 @@ export const createClientAndConnect = (): Sequelize | null => {
 export const synchronizeDB = (sequelize: Sequelize | null) => {
     if (!sequelize) throw new Error('Sequelize instance not found')
 
-    sequelize.sync().then((res) => {
+    sequelize.sync({ force: false }).then((res) => {
         console.log('Connected to the database with options:', res.options)
     })
 }

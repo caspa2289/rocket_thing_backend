@@ -11,10 +11,8 @@ import {
 } from 'sequelize-typescript'
 
 @Table({
-    timestamps: true,
     createdAt: 'created_at',
     updatedAt: 'updated_at',
-    paranoid: false,
     tableName: 'users',
 })
 class User extends Model {
@@ -24,18 +22,27 @@ class User extends Model {
     override id: number
 
     @AllowNull(false)
-    @Length({ max: 20, min: 3 })
+    @Length({
+        max: 20,
+        min: 3,
+        msg: 'Длина имени должна быть от 3 до 20 символов',
+    })
     @Column(DataType.STRING)
         name: string
 
     @Unique
     @AllowNull(false)
-    @Length({ max: 20, min: 3 })
+    @Length({
+        max: 20,
+        min: 3,
+        msg: 'Длина логина должна быть от 3 до 20 символов',
+    })
     @Column(DataType.STRING)
         login: string
 
     @AllowNull(false)
-    @Length({ max: 20, min: 3 })
+    //Это акчли не будет стрелять, т.к хэш всегда одной длины. Надо особое внимание уделить этому на фронте
+    @Length({ min: 3, msg: 'Минимальная длина пароля - 3 символа' })
     @Column(DataType.STRING)
         password: string
 
