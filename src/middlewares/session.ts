@@ -1,4 +1,4 @@
-import pg from 'pg'
+import { Pool } from 'pg'
 import { Express } from 'express'
 import pgSimple from 'connect-pg-simple'
 import expressSession from 'express-session'
@@ -9,7 +9,7 @@ export const setupSessionMiddleware = (
     app: Express
 ) => {
     const PGSession = pgSimple(expressSession)
-    const sessionPool = new pg.Pool({
+    const sessionPool = new Pool({
         host: env.POSTGRES_HOST,
         port: Number(env.POSTGRES_PORT),
         user: env.POSTGRES_USER,
