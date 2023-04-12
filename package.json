@@ -5,7 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "start": "node .dist/main.js",
-    "build": "esbuild main.ts --platform=node --bundle --minify --outfile=.dist/main.js",
+    "build": "esbuild main.ts --platform=node --bundle --minify --outfile=.dist/main.js --external:pg-native",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q main.ts\"",
     "prepare": "husky install"
   },
