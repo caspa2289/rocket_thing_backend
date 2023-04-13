@@ -85,8 +85,24 @@ const handleSignIn = async (
     }
 }
 
+const handleSignOut = (req: Request, res: Response, next: NextFunction) => {
+    try {
+        req.session.destroy(() => {
+            generateResponse(res, {
+                message: 'Успешный выход',
+            })
+        })
+    } catch (err: any) {
+        generateResponse(res, {
+            status: 500,
+            message: err.message,
+        })
+    }
+}
+
 export const userApi = Router()
     .get(`${USER_PATH}/checkAuth`, handleAuthCheck)
     .get(`${USER_PATH}/health`, handleHealthCheck)
     .post(`${USER_PATH}/signup`, handleSignUp)
     .post(`${USER_PATH}/signin`, handleSignIn)
+    .get(`${USER_PATH}/signout`, handleSignOut)
