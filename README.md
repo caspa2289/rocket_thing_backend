@@ -1,5 +1,3 @@
-Бацкенд для срущей собаки. Описание будет дополняться.
-
 ## Важно
 Перед внесением первых изменений в код нужно [настроить](https://www.jetbrains.com/help/webstorm/prettier.html#ws_prettier_run_automatically_in_new_projects) срабатывание `prettier` на сохранение и форматирование файлов.
 
