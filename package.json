@@ -24,7 +24,8 @@
     "reflect-metadata": "0.1.13",
     "sequelize": "6.30.0",
     "sequelize-typescript": "2.1.5",
-    "uuid": "9.0.0"
+    "uuid": "9.0.0",
+    "web-push": "3.5.0"
   },
   "devDependencies": {
     "@types/connect-pg-simple": "7.0.0",
@@ -37,6 +38,7 @@
     "@types/passport-local": "1.0.35",
     "@types/uuid": "9.0.1",
     "@types/validator": "13.7.14",
+    "@types/web-push": "3.3.2",
     "@typescript-eslint/eslint-plugin": "5.57.1",
     "@typescript-eslint/parser": "5.57.1",
     "concurrently": "8.0.1",

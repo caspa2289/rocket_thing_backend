@@ -13,6 +13,8 @@ export const setupMiddlewares = (env: Record<string, any>, app: Express) => {
         origin: [
             `http://127.0.0.1:${clientPort}`,
             `http://localhost:${clientPort}`,
+            'http://localhost:63342',
+            'https://caspa2289.github.io/',
         ],
     }
 

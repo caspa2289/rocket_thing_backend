@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import { userApi } from './src/routes/user'
 import { setupMiddlewares } from './src/middlewares'
+import { notificationApi } from './src/routes/notification'
 
 dotenv.config()
 
@@ -13,6 +14,7 @@ async function startServer() {
     setupMiddlewares(process.env, app)
 
     app.use('/', userApi)
+    app.use('/', notificationApi)
 
     app.get('/', (_, res) => {
         res.send('It`s alive!')
