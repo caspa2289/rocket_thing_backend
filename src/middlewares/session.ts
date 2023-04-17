@@ -29,6 +29,7 @@ export const setupSessionMiddleware = (
             secret: env.COOKIE_SECRET,
             resave: false,
             cookie: {
+                sameSite: 'none',
                 secure: 'auto',
                 maxAge: 10 * 24 * 60 * 60 * 1000,
             },
