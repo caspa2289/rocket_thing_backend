@@ -18,6 +18,8 @@ export const setupSessionMiddleware = (
         max: 1000,
     })
 
+    app.set('trust proxy', 1)
+
     app.use(
         expressSession({
             genid: () => uuid(),
@@ -29,7 +31,8 @@ export const setupSessionMiddleware = (
             secret: env.COOKIE_SECRET,
             resave: false,
             cookie: {
-                secure: 'auto',
+                sameSite: 'none',
+                secure: true,
                 maxAge: 10 * 24 * 60 * 60 * 1000,
             },
         })
