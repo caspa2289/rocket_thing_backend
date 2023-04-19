@@ -2,7 +2,10 @@ import { Server } from 'socket.io'
 import { RequestHandler } from 'express'
 const sharedsession = require('express-socket.io-session')
 
-export const setupWebsocketMiddleware = (session: RequestHandler) => {
+export const setupWebsocketMiddleware = (
+    session: RequestHandler,
+    env: Record<string, any>
+) => {
     const io = new Server({
         cors: {
             origin: [
@@ -20,7 +23,7 @@ export const setupWebsocketMiddleware = (session: RequestHandler) => {
         })
     )
 
-    io.listen(6970)
+    io.listen(env.PORT)
 
     io.on('connection', (socket: any) => {
         console.log(socket.handshake.session)

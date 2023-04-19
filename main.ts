@@ -9,7 +9,7 @@ dotenv.config()
 async function startServer() {
     const app = express()
 
-    const serverPort = Number(process.env.SERVER_PORT) || 6969
+    const serverPort = Number(process.env.PORT) || 6969
 
     setupMiddlewares(process.env, app)
 
