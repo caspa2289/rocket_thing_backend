@@ -39,5 +39,5 @@ export const setupSessionMiddleware = (
 
     app.use(session)
 
-    setupWebsocketMiddleware(session)
+    setupWebsocketMiddleware(session, env)
 }
