@@ -4,6 +4,7 @@ import { setupPassportMiddleWare } from './passport'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import { setupSequelizeMiddleware, synchronizeDB } from './sequelize'
+import { setupWebsocketMiddleware } from './websocket'
 
 export const setupMiddlewares = (env: Record<string, any>, app: Express) => {
     const clientPort = Number(env.CLIENT_PORT) || 3000
@@ -20,6 +21,7 @@ export const setupMiddlewares = (env: Record<string, any>, app: Express) => {
 
     setupSessionMiddleware(env, app)
     setupPassportMiddleWare(app)
+    setupWebsocketMiddleware()
 
     app.use(cors(corsOptions))
     app.use(bodyParser.json())

@@ -24,6 +24,7 @@
     "reflect-metadata": "0.1.13",
     "sequelize": "6.30.0",
     "sequelize-typescript": "2.1.5",
+    "socket.io": "4.6.1",
     "uuid": "9.0.0",
     "web-push": "3.5.0"
   },
