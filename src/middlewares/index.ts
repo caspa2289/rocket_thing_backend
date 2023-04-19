@@ -18,9 +18,8 @@ export const setupMiddlewares = (env: Record<string, any>, app: Express) => {
         ],
     }
 
-    setupPassportMiddleWare(app)
-
     setupSessionMiddleware(env, app)
+    setupPassportMiddleWare(app)
 
     app.use(cors(corsOptions))
     app.use(bodyParser.json())
