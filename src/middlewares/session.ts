@@ -3,6 +3,7 @@ import { Express } from 'express'
 import pgSimple from 'connect-pg-simple'
 import expressSession from 'express-session'
 import { v4 as uuid } from 'uuid'
+import { setupWebsocketMiddleware } from './websocket'
 
 export const setupSessionMiddleware = (
     env: Record<string, any>,
@@ -20,21 +21,23 @@ export const setupSessionMiddleware = (
 
     app.set('trust proxy', 1)
 
-    app.use(
-        expressSession({
-            genid: () => uuid(),
-            store: new PGSession({
-                pool: sessionPool,
-                createTableIfMissing: true,
-            }),
-            saveUninitialized: true,
-            secret: env.COOKIE_SECRET,
-            resave: false,
-            cookie: {
-                sameSite: 'none',
-                secure: true,
-                maxAge: 10 * 24 * 60 * 60 * 1000,
-            },
-        })
-    )
+    const session = expressSession({
+        genid: () => uuid(),
+        store: new PGSession({
+            pool: sessionPool,
+            createTableIfMissing: true,
+        }),
+        saveUninitialized: true,
+        secret: env.COOKIE_SECRET,
+        resave: true,
+        cookie: {
+            sameSite: 'none',
+            secure: true,
+            maxAge: 10 * 24 * 60 * 60 * 1000,
+        },
+    })
+
+    app.use(session)
+
+    setupWebsocketMiddleware(session)
 }
