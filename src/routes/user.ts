@@ -36,12 +36,12 @@ const handleSignUp = async (req: Request, res: Response) => {
         if (isCreated) {
             generateResponse(res, {
                 message: 'Пользователь успешно зарегистрирован',
-                response: user,
+                response: omit(user.dataValues, 'password'),
             })
         } else {
             generateResponse(res, {
                 message: 'Пользователь с таким логином уже зарегистрирован',
-                response: user,
+                response: omit(user.dataValues, 'password'),
             })
         }
     } catch (err: any) {
