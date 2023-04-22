@@ -5,11 +5,12 @@ import expressSession from 'express-session'
 import { v4 as uuid } from 'uuid'
 import { setupWebsocketMiddleware } from './websocket'
 import { Server } from 'https'
+import { Server as HTTPServer } from 'http'
 
 export const setupSessionMiddleware = (
     env: Record<string, any>,
     app: Express,
-    server: Server
+    server: Server | HTTPServer
 ) => {
     const PGSession = pgSimple(expressSession)
     const sessionPool = new Pool({
