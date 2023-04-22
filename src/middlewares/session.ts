@@ -4,10 +4,12 @@ import pgSimple from 'connect-pg-simple'
 import expressSession from 'express-session'
 import { v4 as uuid } from 'uuid'
 import { setupWebsocketMiddleware } from './websocket'
+import { Server } from 'https'
 
 export const setupSessionMiddleware = (
     env: Record<string, any>,
-    app: Express
+    app: Express,
+    server: Server
 ) => {
     const PGSession = pgSimple(expressSession)
     const sessionPool = new Pool({
@@ -39,5 +41,5 @@ export const setupSessionMiddleware = (
 
     app.use(session)
 
-    setupWebsocketMiddleware(session, env)
+    setupWebsocketMiddleware(session, env, app, server)
 }
