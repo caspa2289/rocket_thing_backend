@@ -37,7 +37,7 @@ async function startServer() {
         res.send('It`s alive!')
     })
 
-    const server = https.createServer(app)
+    const server = http.createServer(app)
 
     setupMiddlewares(process.env, app, server)
 
